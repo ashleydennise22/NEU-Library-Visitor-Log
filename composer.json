@@ -1,0 +1,11 @@
+{
+    "name": "ashley/neu_library",
+    "require": {
+        "google/apiclient": "^2.19"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ashley\\NeuLibrary\\": "src/"
+        }
+    }
+}
