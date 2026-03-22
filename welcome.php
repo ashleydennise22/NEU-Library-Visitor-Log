@@ -5,7 +5,6 @@ date_default_timezone_set('Asia/Manila');
 require_once 'config.php';
 
 // 2. KUNIN ANG DATA GALING SA URL (GET)
-// Ginamit natin ang 'dept' dahil ito ang parameter name sa redirection
 $name = $_GET['name'] ?? 'Visitor';
 $department = $_GET['dept'] ?? 'Not Specified'; 
 $purpose = $_GET['purpose'] ?? 'General Visit';
