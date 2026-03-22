@@ -1,13 +1,11 @@
 <?php
 require_once 'config.php'; //
 
-// Kung naka-login na ang admin, skip ang login page
 if (isset($_SESSION['admin_logged_in'])) {
     header("Location: admin.php");
     exit();
 }
 
-// Itakda ang login role bilang admin
 $_SESSION['login_role'] = 'admin';
 
 $login_url = $client->createAuthUrl();
