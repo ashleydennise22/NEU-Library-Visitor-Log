@@ -47,16 +47,12 @@ if ($check_blocked && $check_blocked->num_rows > 0) {
 $current_time = date("Y-m-d H:i:s"); // Para sa database (YYYY-MM-DD)
 $display_time = date('F d, Y | h:i A'); // Para sa screen (e.g., March 22, 2026 | 06:09 PM)
 
-// --- SA LOOB NG process_log.php ---
-
 // 2. INSERT LOG
-// Siguradong 'login_time' at 'department' ang gagamitin natin dito
 $sql = "INSERT INTO visitors (name, email, purpose, department, user_type, login_time) 
         VALUES ('$name', '$email', '$purpose', '$department', '$user_type', '$current_time')";
 
 if ($conn->query($sql)) {
     // 3. REDIRECT TO WELCOME.PHP
-    // 'dept' ang kailangang key para makuha ng welcome.php ang College
     header("Location: welcome.php?name=" . urlencode($name) . 
            "&dept=" . urlencode($department) . 
            "&purpose=" . urlencode($purpose) . 
