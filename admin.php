@@ -1,11 +1,10 @@
 <?php
 // admin.php
-session_start(); // Siguraduhing may session_start() sa pinakataas!
+session_start(); !
 require_once 'config.php';
 
 // Mas mahigpit na security check
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    // Kung hindi valid ang session, i-destroy ito para malinis
     session_unset();
     session_destroy();
     header("Location: admin_login.php");
@@ -24,11 +23,8 @@ $search     = $_GET['search'] ?? '';
 $today_count = $conn->query("SELECT COUNT(*) as total FROM visitors WHERE DATE(login_time) = CURDATE()")->fetch_assoc()['total'];
 $week_count  = $conn->query("SELECT COUNT(*) as total FROM visitors WHERE login_time >= DATE_SUB(NOW(), INTERVAL 7 DAY)")->fetch_assoc()['total'];
 
-// DITO NAGDAGDAG NG BLOCKED USERS QUERY
-// Ang 'blocked' ay status sa visitors table
 $blocked_result = $conn->query("SELECT COUNT(*) as total FROM visitors WHERE status = 'blocked'");
 if (!$blocked_result) {
-    // Pag walang 'status' column, gumawa muna sa SQL
     $blocked_count = 0; 
 } else {
     $blocked_count = $blocked_result->fetch_assoc()['total'];
@@ -50,7 +46,6 @@ if ($search) {
                 OR email LIKE '%$s%')";
 }
 
-// admin.php (Line 43-45 approx)
 $result = $conn->query("SELECT * FROM visitors $where ORDER BY login_time DESC");
 $range_count = $result->num_rows;
 
