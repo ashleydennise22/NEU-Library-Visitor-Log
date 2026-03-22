@@ -14,7 +14,6 @@ if (isset($_GET['code'])) {
         $email = $google_account_info->email;
         $name = $google_account_info->name;
 
-        // 1. DOMAIN FILTER: Dapat @neu.edu.ph lang ang pwedeng pumasok sa system
         if (!str_ends_with($email, '@neu.edu.ph')) {
             session_unset();
             session_destroy();
@@ -22,10 +21,8 @@ if (isset($_GET['code'])) {
             exit();
         }
 
-        // 2. DEFINE ADMINS: Kayo lang dalawa ang authorized sa Dashboard
         $allowed_admins = ['jcesperanza@neu.edu.ph', 'ashleydennise.alberto@neu.edu.ph'];
 
-        // 3. CHECK KUNG SAAN GALING ANG USER (Admin Login or Visitor Login)
         if (isset($_SESSION['login_role']) && $_SESSION['login_role'] === 'admin') {
             
             // --- ADMIN LOGIN FLOW ---
@@ -37,17 +34,13 @@ if (isset($_GET['code'])) {
                 header("Location: admin.php");
                 exit();
             } else {
-                // Kung @neu.edu.ph siya pero hindi admin email, block sa admin dashboard
                 session_unset();
                 session_destroy();
                 header("Location: admin_login.php?error=Access Denied: Authorized Personnel Only");
                 exit();
             }
 
-       } else {
-            // --- VISITOR LOGIN FLOW (index.php) ---
-            
-            // Check muna kung blocked sa database
+       } else {            
             $check_email = $conn->real_escape_string($email);
             $check_blocked = $conn->query("SELECT status FROM visitors WHERE email = '$check_email' AND status = 'blocked' LIMIT 1");
             
@@ -57,9 +50,7 @@ if (isset($_GET['code'])) {
                 header("Location: index.php?error=Access Denied: Your account is restricted.");
                 exit();
             }
-
-            // DITO ANG PAGBABAGO: Pangalan at Email lang ang ipapasa natin.
-            // Ang Department at Purpose ay itatanong sa purpose.php
+        
             header("Location: purpose.php?name=" . urlencode($name) . "&email=" . urlencode($email));
             exit();
         }
