@@ -2,7 +2,6 @@
 session_start();
 
 // 1. SECURITY CHECK
-// Only jcesperanza@neu.edu.ph can perform these actions
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['email'] !== 'jcesperanza@neu.edu.ph') {
     die("Unauthorized access.");
 }
