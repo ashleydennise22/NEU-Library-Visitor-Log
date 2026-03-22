@@ -3,7 +3,6 @@ require_once 'config.php';
 
 $name = $_GET['name'] ?? 'Visitor';
 $email = $_GET['email'] ?? '';
-// Inalis natin ang default na CICS dito para maging blanko sa simula
 $dept = $_GET['dept'] ?? ''; 
 ?>
 <!DOCTYPE html>
